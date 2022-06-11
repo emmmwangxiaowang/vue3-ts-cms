@@ -1,14 +1,6 @@
 <template>
-  <div class="app">
-    <h2>{{$store.state.name}}</h2>
-
-    <router-link to="/login">登录</router-link>
-    <router-link to="/main">首页</router-link>
+  <div class="main">
     <router-view></router-view>
-
-    <el-button>emmm</el-button>
-    <el-button type="primary">emmm</el-button>
-    <el-button type="danger">emmm</el-button>
   </div>
 </template>
 
@@ -24,7 +16,7 @@ export default defineComponent({
 </script>
 
 <style lang="less">
-#app {
+#main {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
