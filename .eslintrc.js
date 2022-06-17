@@ -18,5 +18,14 @@ module.exports = {
         'prettier/prettier': 'off',
         'vue/multi-word-component-names': "off",
         '@typescript-eslint/no-var-requires': 0
+    },
+    settings: {
+        'import/resolver': {
+            alias: {
+                map: [
+                    ['@', './src']
+                ]
+            }
+        }
     }
 }

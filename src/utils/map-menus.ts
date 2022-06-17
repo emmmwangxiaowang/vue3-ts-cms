@@ -1,7 +1,10 @@
+import { IBreadcrumb } from "@/base-ui/breadcrumb";
+import menu from "@/router/main/system/menu/menu";
 import { UserMenu } from "@/store/login/types";
 
 import { RouteRecordRaw } from "vue-router";
 
+let firstMenu:UserMenu
 // 将 userMenus 中对应的 url 映射到 路由中
 export function mapMenusToRoutes(userMenus:UserMenu[]):RouteRecordRaw[]{
   const routes:RouteRecordRaw[]=[]
@@ -40,39 +43,49 @@ export function mapMenusToRoutes(userMenus:UserMenu[]):RouteRecordRaw[]{
       return item.path === menu.url
     })
 
-
-
-
-
     if(route){
       routes.push(route)
     }
+
+    // 如果 首页路由为空, 就将第一个遍历出来的路由赋值给 firstMenu
+    if(!firstMenu){
+      firstMenu=menu
+    }
   }
 
-
-
-
-    // for(const menu of userMenus){
-    //   if(menu.parentMenuId in [2,3]){
-
-    //     const route=allRoutes.find((route)=>{
-    //       route.path===menu.url
-    //     })
-    //     console.log('====');
-
-    //     console.log(route);
-
-    //     if(route){
-    //       routes.push(route)
-    //     }
-
-    //     // routes.push({path:menu.url,name:menu.menuName,children:[],component:() => import(`@/views/main/system/${menu.menuName}/${menu.menuName}.vue`)})
-    //   }
-    // }
-
-
-
-
+  console.log(routes);
 
   return routes
 }
+
+export function pathMapBreadcrumbs(userMenus:UserMenu[],currentPath:string){
+  const breadcrumbs:IBreadcrumb[]=[]
+
+  const menus= userMenus.find((item)=>
+    item.url===currentPath
+  )
+
+  if(menus){
+    // 当前路由存在,直接放入面包屑
+    breadcrumbs.push({name:menus!.menuName})
+
+    // 找到当前路由的父路由
+    const parent= userMenus.find((item)=>
+      item.id===menus?.parentMenuId
+    )
+
+    breadcrumbs.push({name:parent!.menuName,})
+  }
+
+  return breadcrumbs
+
+}
+
+export function pathMapToMenu(userMenus:UserMenu[],currentPath:string){
+
+  return userMenus.find((item)=>
+    item.url===currentPath
+  )
+}
+
+export { firstMenu }

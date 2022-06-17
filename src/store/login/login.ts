@@ -36,12 +36,19 @@ const loginModule:Module<ILoginState,IRootState>={
       const routes= mapMenusToRoutes(userMenus)
       // 将 routes => router.mian.children
 
+      console.log(userMenus);
+
+      console.log('注册动态路由');
+
       console.log(routes);
 
       // 将 routes => router.main.children
       routes.forEach((item)=>{
         router.addRoute('main',item)
       })
+
+
+
 
     }
   },
@@ -74,6 +81,9 @@ const loginModule:Module<ILoginState,IRootState>={
       const userMenusResult=await requestUserMenusByRoleId(userInfo.id)
       const userMenus=userMenusResult.data;
 
+
+
+
       commit('changeUserMenus',userMenus)
       localCache.setCache('userMenus',userMenus)
 
@@ -89,12 +99,12 @@ const loginModule:Module<ILoginState,IRootState>={
         commit('changeToken',token)
       }
       const userInfo=localCache.getCache('userInfo')
-      console.log(userInfo);
 
       if(userInfo){
         commit('changeUserInfo',userInfo)
       }
       const userMenus=localCache.getCache('userMenus')
+      console.log('userMenus22222');
       console.log(userMenus);
 
       if(userMenus){

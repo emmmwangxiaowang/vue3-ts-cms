@@ -2,6 +2,8 @@
 import { createStore,Store,useStore as useVuexStore } from "vuex";
 import { IStoreType } from "./main/types";
 
+import login from './login/login'
+
 interface IRootState{
   name:string
   age:number
@@ -12,6 +14,7 @@ const store =createStore<IRootState>({
     return {
       name:'wang',
       age:21
+
     }
   },
   getters:{},
@@ -20,11 +23,18 @@ const store =createStore<IRootState>({
       console.log(state);
     }
   },
-  actions:{}
+  actions:{},
+  modules:{
+    login
+  }
 })
 
 export function setupStore(){
+  console.log('进入了setup');
+
   store.dispatch('login/loadLocalLogin')
+  console.log('setup结束了');
+
 }
 
 export function useStore():Store<IStoreType>{

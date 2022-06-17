@@ -9,7 +9,9 @@
           <nav-header @foldChange="handleFOldChange" />
         </el-header>
         <el-main class="page-content">Main
-          <router-view></router-view>
+          <div class="page-info">
+            <router-view></router-view>
+          </div>
         </el-main>
       </el-container>
     </el-container>
@@ -30,18 +32,18 @@ export default defineComponent({
 
     const store =useStore()
 
-    onMounted(() => {
+    // onMounted(() => {
 
-    // 仅在整个视图都被重新渲染完毕之后才会运行的代码
-    store.dispatch(('login/loadLocalLogin'))
+    // // 仅在整个视图都被重新渲染完毕之后才会运行的代码
+    // store.dispatch(('login/loadLocalLogin'))
 
-    })
+    // })
     const handleFOldChange=(isFold:boolean)=>{
       isCollapse.value=isFold
     }
 
     return {
-      onMounted,
+      // onMounted,
       handleFOldChange,
       isCollapse,
     }
@@ -66,6 +68,11 @@ export default defineComponent({
 .page-content{
   height: calc(100%-48px);
   background-color: aliceblue;
+
+  .page-info {
+    background: #fff;
+    border-radius: 5px;
+  }
 }
 
 .el-header,.el-footer{

@@ -8,7 +8,7 @@
     <el-menu
         background-color="#001529"
         class="el-menu-vertical-demo"
-        default-active="2"
+        :default-active="defaultItem"
         text-color="cyan"
         :collapse="collapse"
         >
@@ -51,8 +51,11 @@
 <script lang="ts">
 
 import { useStore } from '../../../store/index'
-import { defineComponent,computed } from 'vue'
-import { useRouter } from 'vue-router'
+import { defineComponent,computed,ref } from 'vue'
+import { useRouter,useRoute } from 'vue-router'
+
+import { pathMapToMenu } from '@/utils/map-menus'
+
 
 export default defineComponent({
 
@@ -67,15 +70,18 @@ export default defineComponent({
 
 
     const store=useStore()
-    const userMenus=computed(()=>store.state.login.userMenus)
+    const userMenus=computed(()=>
+       store.state.login.userMenus
+    )
 
-
+    // 权限判断
     const findMenu=(id:number):boolean=>{
       return userMenus.value.some(item=>{
         return item.id===id
       })
     }
 
+    // 获取菜单
     const dataMenus=(id:number)=>{
       return userMenus.value.filter((item)=>{
         return item.parentMenuId===id
@@ -91,13 +97,20 @@ export default defineComponent({
 
     }
 
+    // 菜单默认值
+
+    const route=useRoute()
+    const currentPath=route.path
+    const menu=pathMapToMenu(userMenus.value,currentPath)
+    const defaultItem=ref(menu!.id + '');
+    console.log(defaultItem.value);
 
     return {
       userMenus,
       findMenu,
       dataMenus,
       handleMenuItemClick,
-      router
+      defaultItem
     }
   }
 })
