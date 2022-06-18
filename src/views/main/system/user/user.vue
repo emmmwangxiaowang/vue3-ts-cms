@@ -1,31 +1,38 @@
 <template>
   <div class="user">
     <div class="search">
-      <xw-form v-bind="searchFormConfig"/>
+      <page-search :searchFormConfig="searchFormConfig" />
     </div>
 
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import XwForm from '@/base-ui/form/index'
+import { defineComponent, ref } from 'vue'
+import PageSearch from '@/components/page-search'
+
 
 import { searchFormConfig }  from './config/search.config'
+
 
 
 export default defineComponent({
   name: 'user',
   components:{
-    XwForm
+    PageSearch
   },
   setup() {
 
-
-
+    const formData=ref({
+      name:'',
+      password:'',
+      sport:'',
+      createTime:''
+    })
 
     return {
-      searchFormConfig
+      searchFormConfig,
+      formData
 
     }
   }
@@ -33,7 +40,10 @@ export default defineComponent({
 </script>
 
 <style scoped>
-  .xw-form{
-    padding-top: 22px
+  .xw-form {
+    padding-top: 5px
   }
+
+
+
 </style>

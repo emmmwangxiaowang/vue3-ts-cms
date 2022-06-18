@@ -17,7 +17,9 @@ module.exports = {
         'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
         'prettier/prettier': 'off',
         'vue/multi-word-component-names': "off",
-        '@typescript-eslint/no-var-requires': 0
+        '@typescript-eslint/no-var-requires': 0,
+        // 单向数据源 原则
+        'vue/no-mutating-props': 'off'
     },
     settings: {
         'import/resolver': {
