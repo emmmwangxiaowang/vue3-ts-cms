@@ -103,7 +103,6 @@ export default defineComponent({
     const currentPath=route.path
     const menu=pathMapToMenu(userMenus.value,currentPath)
     const defaultItem=ref(menu!.id + '');
-    console.log(defaultItem.value);
 
     return {
       userMenus,

@@ -6,7 +6,7 @@ import localCache from "@/utils/cache";
 
 import { IAccount } from "@/service/login/types";
 import { ILoginState } from "./types";
-import { IRootState } from "../main/types";
+import { IRootState } from "../types";
 import router from "@/router";
 
 import { mapMenusToRoutes } from "@/utils/map-menus";
@@ -36,11 +36,7 @@ const loginModule:Module<ILoginState,IRootState>={
       const routes= mapMenusToRoutes(userMenus)
       // 将 routes => router.mian.children
 
-      console.log(userMenus);
 
-      console.log('注册动态路由');
-
-      console.log(routes);
 
       // 将 routes => router.main.children
       routes.forEach((item)=>{
@@ -55,13 +51,7 @@ const loginModule:Module<ILoginState,IRootState>={
   actions:{
     async accountLoginAction({commit},payload:IAccount){
       // 实现登录逻辑
-      console.log('进入了 AccountLoginAction 方法' +JSON.stringify(payload));
-
       const  loginResult=await accoutnLoginRequest(payload)
-
-      console.log(loginResult);
-
-
 
       const {id,token}=loginResult.data
       commit('changeToken',token)
@@ -69,7 +59,6 @@ const loginModule:Module<ILoginState,IRootState>={
 
       // 请求用户信息
       const userInfoResult= await requestUserInfoById(id)
-      console.log(userInfoResult);
 
       const userInfo=userInfoResult.data
 
@@ -104,8 +93,6 @@ const loginModule:Module<ILoginState,IRootState>={
         commit('changeUserInfo',userInfo)
       }
       const userMenus=localCache.getCache('userMenus')
-      console.log('userMenus22222');
-      console.log(userMenus);
 
       if(userMenus){
         commit('changeUserMenus',userMenus)

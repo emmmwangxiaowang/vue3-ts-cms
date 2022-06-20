@@ -33,11 +33,6 @@ export function mapMenusToRoutes(userMenus:UserMenu[]):RouteRecordRaw[]{
     return item.type === 1
   })
 
-  console.log("allroutes");
-  console.log(allRoutes);
-
-
-
   for(const menu of routeFilters){
     const route = allRoutes.find((item)=>{
       return item.path === menu.url
@@ -53,7 +48,6 @@ export function mapMenusToRoutes(userMenus:UserMenu[]):RouteRecordRaw[]{
     }
   }
 
-  console.log(routes);
 
   return routes
 }

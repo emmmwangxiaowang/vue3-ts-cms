@@ -1,8 +1,9 @@
 
 import { createStore,Store,useStore as useVuexStore } from "vuex";
-import { IStoreType } from "./main/types";
+import { IStoreType } from "./types";
 
 import login from './login/login'
+import system from './main/system/system'
 
 interface IRootState{
   name:string
@@ -25,15 +26,14 @@ const store =createStore<IRootState>({
   },
   actions:{},
   modules:{
-    login
+    login,
+    system
   }
 })
 
 export function setupStore(){
-  console.log('进入了setup');
 
   store.dispatch('login/loadLocalLogin')
-  console.log('setup结束了');
 
 }
 

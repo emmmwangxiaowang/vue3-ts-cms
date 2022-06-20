@@ -30,7 +30,6 @@ export default defineComponent({
 
     const isCollapse=ref(false)
 
-    const store =useStore()
 
     // onMounted(() => {
 
