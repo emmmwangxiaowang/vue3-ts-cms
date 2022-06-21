@@ -1,5 +1,5 @@
 <template>
-  <div class="main">
+  <div class="main" style="">
      <el-container class="main-content">
       <el-aside :width="isCollapse ? '60px' : '200px'">
         <nav-menu :collapse="isCollapse"/>
@@ -19,8 +19,7 @@
 </template>
 
 <script lang="ts">
-import { useStore } from 'vuex'
-import { defineComponent ,onMounted,ref } from 'vue'
+import { defineComponent ,ref } from 'vue'
 import navMenu from '../../components/nav-menu/src/nav-menu.vue'
 import navHeader from '../../components/nav-header/src/nav-header.vue'
 
@@ -105,6 +104,7 @@ export default defineComponent({
   color: #333;
   text-align: center;
   background-color: #f0f2f5;
+  overflow: hidden auto;
 }
 
 

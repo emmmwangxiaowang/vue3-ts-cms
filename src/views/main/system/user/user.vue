@@ -5,9 +5,36 @@
       <page-search :searchFormConfig="searchFormConfig" />
 
       <div class="content">
-        <xw-table :listData="userList" :propList="propList">
+        <xw-table :listData="userList" :propList="propList"
+        :showIndexColumn="showIndexColumn"
+        :showSelectColumn="showSelectColumn"
+        :title="title"
+        >
+          <template #deleted="scope">
+            <el-button
+              :type="scope.row.deleted==1 ? 'success' :'danger'"
+            >{{scope.row.deleted===1 ? "是" : "否"}}</el-button>
+          </template>
+          <!-- 1. header 中的插槽 -->
+          <template #headerHandler>
+            <el-button icon="plus" type="primary">新建用户</el-button>
+            <el-button icon="refresh" type="primary">刷新</el-button>
+          </template>
+
+          <!-- 列 中的插槽 -->
           <template #createTime="scope">
-            <strong>{{scope.row.createTime}}</strong>
+            {{$filters.formatDate(scope.row.createTime)}}
+          </template>
+          <template #updateTime="scope">
+            {{$filters.formatDate(scope.row.updateTime)}}
+          </template>
+          <template #option>
+            <div class="handle-btns">
+              <el-button icon="edit" size="mini" type="primary">编辑</el-button>
+            <el-button icon="delete" type="danger">删除</el-button>
+            </div>
+
+
           </template>
         </xw-table>
 
@@ -58,14 +85,19 @@ export default defineComponent({
 
     const propList=[
       {prop:'username',label:'用户名',width:100,slotName:'username'},
-      {prop:'email',label:'邮箱',width:250,slotName:'email'},
-      {prop:'phone',label:'电话',width:200,slotName:'phone'},
-      {prop:'createTime',label:'创建时间',width:250,slotName:'createTime'},
-      {prop:'updateTime',label:'更新时间',width:250,slotName:'deptId'},
-      {prop:'deptId',label:'部门'}
+      {prop:'phone',label:'电话',width:150,slotName:'phone'},
+      {prop:'deleted',label:'在任',width:100,slotName:'deleted'},
+      {prop:'createTime',label:'创建时间',width:230,slotName:'createTime'},
+      {prop:'updateTime',label:'更新时间',width:230,slotName:'updateTime'},
+      {prop:'deptId',label:'部门',width:100,slotName:'deptId'},
+      {label:'操作',slotName:'option'}
     ]
 
+    const showIndexColumn=true
 
+    const showSelectColumn=true
+
+    const title='用户列表'
 
     return {
       searchFormConfig,
@@ -73,6 +105,9 @@ export default defineComponent({
       userList,
       userCount,
       propList,
+      showIndexColumn,
+      showSelectColumn,
+      title
 
     }
   }
@@ -89,5 +124,11 @@ export default defineComponent({
     border-top:20px solid #ffff
   }
 
+  .handle-btns {
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    justify-content: space-between;
+  }
 
 </style>
